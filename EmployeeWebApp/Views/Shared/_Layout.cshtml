@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+	var jwtToken = HttpContextAccessor.HttpContext?.Session.GetString("JwtToken");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -29,6 +36,18 @@
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav ms-auto">
+						@if (!string.IsNullOrEmpty(jwtToken))
+						{
+							<li class="nav-item">
+								<a class="btn btn-danger rounded-pill text-white" asp-area="" asp-controller="Auth" asp-action="Logout">
+									<i class="fas fa-sign-out-alt"></i> Logout
+								</a>
+							</li>
+						}
+					</ul>
+				</div>
 			</div>
 		</nav>
 	</header>

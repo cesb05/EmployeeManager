@@ -19,6 +19,13 @@ namespace EmployeeWebApp.Controllers
             _httpClient.BaseAddress = new Uri("https://localhost:7176");
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            // Recuperar el token de la sesión y agregarlo a las cabeceras
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("JwtToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
         }
 
         //Este método se llama al cargar la vista principal

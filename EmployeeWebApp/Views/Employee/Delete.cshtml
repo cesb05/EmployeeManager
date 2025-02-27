@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Confirmar Eliminación";
+}
+
+@model EmployeeWebApp.Models.Employee
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Confirmar Eliminación</h2>
+
+    <div class="alert alert-warning">
+        <h5 class="mb-3">¿Está seguro de que desea eliminar este registro?</h5>
+        <div>
+            <h4>Nombre: <strong>@Model.Nombre</strong></h4>
+            <h4>Apellido: <strong>@Model.Apellido</strong></h4>
+            <h4>Correo: <strong>@Model.Email</strong></h4>
+            <h4>Teléfono: <strong>@(string.IsNullOrWhiteSpace(Model.Telefono) ? "N/A" : Model.Telefono)</strong></h4>
+            <h4>Salario: <strong>@Model.Salario.ToString("C")</strong></h4>
+            <h4>Fecha de Ingreso: <strong>@Model.FechaIngreso.ToString("dd/MM/yyyy")</strong></h4>
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post" asp-route-id="@Model.Id">
+        <div class="d-flex align-items-center">
+            <button type="submit" class="btn btn-danger me-2">
+                <i class="fas fa-user-times"></i> Eliminar
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,107 @@
+﻿@{
+	ViewData["Title"] = "Editar Empleado";
+}
+
+@model EmployeeWebApp.Models.Employee
+
+<div class="container mt-5">
+	<h2 class="text-center mb-4">Editar Empleado</h2>
+	<form asp-action="Edit" method="post" id="employeeFormEdit">
+		<input type="hidden" asp-for="Id" />
+
+		<div class="form-group mb-3">
+			<label for="Nombre">
+				<i class="fas fa-user"></i> Nombre:
+			</label>
+			<input asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre" />
+		</div>
+		<div class="form-group mb-3">
+			<label for="Apellido">
+				<i class="fas fa-user"></i> Apellido:
+			</label>
+			<input asp-for="Apellido" class="form-control" placeholder="Ingrese el apellido" />
+		</div>
+		<div class="form-group mb-3">
+			<label for="Email">
+				<i class="fas fa-envelope"></i> Correo:
+			</label>
+			<input asp-for="Email" class="form-control" placeholder="Ingrese el correo" />
+		</div>
+		<div class="form-group mb-3">
+			<label for="Telefono">
+				<i class="fas fa-phone"></i> Teléfono:
+			</label>
+			<input asp-for="Telefono" class="form-control" placeholder="Ingrese el teléfono" />
+		</div>
+		<div class="form-group mb-3">
+			<label for="Salario">
+				<i class="fas fa-dollar-sign"></i> Salario:
+			</label>
+			<input asp-for="Salario" class="form-control" placeholder="Ingrese el salario" />
+		</div>
+
+		<div class="d-flex align-items-center">
+			<button type="submit" class="btn btn-primary me-2">
+				<i class="fas fa-edit"></i> Editar
+			</button>
+			<a asp-action="Index" class="btn btn-secondary">
+				<i class="fas fa-arrow-left"></i> Regresar
+			</a>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL DE ERROR/EXITO -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-danger text-white">
+				<h5 class="modal-title" id="modalTitle">Error</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+				<p id="errorMessage"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			$("#employeeFormEdit").submit(function (e) {
+				e.preventDefault();
+				var formData = $(this).serialize();
+
+				$.post("/Employee/Edit", formData, function (data) {
+					if (data.success) {
+						$("#errorMessage").html(data.message);
+						$(".modal-header").removeClass("bg-danger").removeClass("bg-warning").addClass("bg-success");
+						$("#modalTitle").text("Éxito");
+						$("#errorModal").modal("show");
+
+						setTimeout(function () {
+							window.location.href = "/Employee/Index";
+						}, 2000);
+					} else {
+						$("#errorMessage").html(data.message);
+						$(".modal-header").removeClass("bg-success").removeClass("bg-warning").addClass("bg-danger");
+						$("#modalTitle").text("Error");
+						$("#errorModal").modal("show");
+					}
+				}).fail(function () {
+					$("#errorMessage").html("Ocurrió un error en la comunicación con el servidor.");
+					$(".modal-header").removeClass("bg-success").removeClass("bg-warning").addClass("bg-danger");
+					$("#modalTitle").text("Error");
+					$("#errorModal").modal("show");
+				});
+			});
+		});
+	</script>
+}

@@ -69,7 +69,8 @@ dotnet publish -c Release -o C:\PublicacionProyecto
    - Asegurar que la API y el sitio MVC sean accesibles desde el navegador.
 
 ## Referencias de la API
-
+Esta API permite gestionar la información de los empleados, incluyendo la capacidad de listar, crear, actualizar y eliminar empleados.
+La API está compuesta por los siguientes EndPoints:
 - #### Listar todos los empleados
 
 ```

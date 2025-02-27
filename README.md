@@ -128,8 +128,18 @@ Nota: La información se envía por medio de un DTO. No se envía la fecha de in
 | :---------- | :-------- | :----------------------------------------------------------------- |
 | `ID`	      | `int`     | **Autoincremental**. Identificador de empleado.                    |
 
+## Autenticación y Seguridad con ASP.NET Core Identity: :closed_lock_with_key:
+La aplicación implementa autenticación utilizando ASP.NET Core Identity, lo que permite gestionar los usuarios.
 
-## Capturas de Pantalla (Opcional)
+### Configuración de Identity:
+- Se usa IdentityDbContext para manejar la entidad de los usuarios.
+- La base de datos de Identity se configura mediante migraciones EF y contiene las tablas necesarias para los usuarios.
+
+### Inicio de sesión:
+- Los usuarios deben registrarse a través del formulario de registro, donde se validan datos como el correo y la contraseña.
+- El inicio de sesión es gestionado por Identity. Los usuarios pueden acceder a áreas protegidas solo si están autenticados.
+
+## Capturas de Pantalla
 - Capturas de Pantalla proyecto Web
 <a href="https://github.com/user-attachments/assets/e5e58332-39b5-406a-8529-6092c1c0dc7b" target="_blank">
   <img src="https://github.com/user-attachments/assets/e5e58332-39b5-406a-8529-6092c1c0dc7b" alt="Imagen" width="150"/>
@@ -155,5 +165,5 @@ Nota: La información se envía por medio de un DTO. No se envía la fecha de in
   <img src="https://github.com/user-attachments/assets/484d23ce-02b3-454e-b9f7-bb28f0383af6" alt="Imagen" width="150"/>
 </a>
 
-## Autor
-Cesar Soto
+## Desarrollado por: :pushpin:
+César Soto
